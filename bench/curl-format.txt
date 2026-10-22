@@ -1,0 +1,6 @@
+dns_lookup: %{time_namelookup}s\n
+tcp_connect: %{time_connect}s\n
+tls_handshake: %{time_appconnect}s\n
+ttfb: %{time_starttransfer}s\n
+total: %{time_total}s\n
+bytes: %{size_download}\n
