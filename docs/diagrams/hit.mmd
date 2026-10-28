@@ -1,0 +1,8 @@
+sequenceDiagram
+    participant Browser
+    participant Edge as Cloudflare Edge
+    participant Origin as Express Origin
+    Browser->>Edge: GET unchanged asset URL
+    Note over Edge: Matching fresh representation
+    Edge-->>Browser: Cached JPEG + HIT + Age
+    Note over Origin: No request in this simple HIT path

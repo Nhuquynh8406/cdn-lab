@@ -1,0 +1,21 @@
+CDN Lab TV2 — local verification, 29 October 2026
+
+Environment: Windows; Node.js v24.19.0; npm 11.17.0; installed Google Chrome headless via Playwright.
+
+npm test: PASS, 8 tests (including subtests), 0 failures.
+Validated: all admin aliases and API authentication; no-store on dynamic/auth responses; public pages and bundled Chart.js; hidden .env 404; static cache/CORS/Timing-Allow-Origin; raw conditional HTTP 304; cross-site admin write rejection; JPEG decoding and rejection of disguised/non-image files; content-version change and atomic replacement; purge path/mode validation; exact query URL construction; provider payload, unsuccessful acknowledgement and missing-credential errors.
+
+node tools/browser-check.js: PASS.
+Validated: gallery has 30 successfully loaded JPEGs; one run per asset yields eight local route/asset result rows and zero failed requests; CSV download; admin previews; unconfigured purge buttons disabled; version toggle; 390px viewport has no horizontal page overflow; no page JavaScript exceptions.
+The browser check overrides route configuration to its isolated ephemeral test server. No Cloudflare account or live origin was involved.
+
+npm run assets: PASS.
+30 JPEGs, 497006–502910 bytes each; synthetic locally generated textures. Two upload banners and a licensed lodash payload prepared.
+
+npm run documents: produces Word report, twenty-slide PowerPoint and four PNG/SVG diagram exports. Mermaid sources retained. Sharp emitted font-cache-directory warnings under the sandbox; exported PNGs were viewed and text was present and readable.
+
+Screenshots: docs/screenshots/local-*.png. CSV: local-benchmark.csv. These record local behavior, not production CDN gains. The ephemeral port in screenshots is intentional.
+
+Word COM automation could not start in the restricted Windows logon session. PDF is therefore printed from the same report Markdown through an HTML layout in headless Chrome; its pagination differs from DOCX. Neither format claims the unavailable Faculty template.
+
+Pending external acceptance: live HTTPS hosts, actual Cloudflare rules and purge propagation, jsDelivr release, TV3 formal datasets and clean-machine installation, real names/IDs, Faculty formatting, and three-person video. See acceptance.md.

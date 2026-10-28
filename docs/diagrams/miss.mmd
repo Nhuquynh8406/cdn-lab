@@ -1,0 +1,13 @@
+sequenceDiagram
+    actor User
+    participant Browser
+    participant Edge as Cloudflare Edge
+    participant Origin as Express Origin
+    User->>Browser: Open gallery
+    Browser->>Edge: GET /static/img/banner.jpg
+    Note over Edge: No reusable local entry (simple one-tier case)
+    Edge->>Origin: GET same asset
+    Origin-->>Edge: 200 JPEG + Cache-Control + origin timestamp
+    Note over Edge: Store if eligible under active rules
+    Edge-->>Browser: JPEG + actual CF-Cache-Status
+    Browser-->>User: Render image

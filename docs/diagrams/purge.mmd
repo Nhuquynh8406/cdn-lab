@@ -1,0 +1,17 @@
+sequenceDiagram
+    actor Admin
+    participant App as Express Application
+    participant Disk as Origin Filesystem
+    participant API as Cloudflare Purge API
+    participant Edge as CDN Edge
+    Admin->>App: Authenticated upload + X-CDN-Lab
+    App->>Disk: Decode JPEG, write temp, rename
+    App-->>Admin: New content hash; no purge yet
+    Admin->>Edge: GET unchanged banner URL
+    Edge-->>Admin: Old cached bytes if fresh HIT
+    Admin->>App: POST purge /static/img/banner.jpg
+    App->>API: Zone-scoped authenticated purge
+    API-->>App: Success or failure
+    App-->>Admin: Verified API acknowledgement or error
+    Admin->>Edge: Reload and inspect actual response
+    Note over Edge: Next state depends on propagation and caching
