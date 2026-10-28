@@ -1,0 +1,11 @@
+flowchart LR
+    Visitor([Visitor]) --> Gallery[View 30-image gallery]
+    Visitor --> Benchmark[Measure routes and export CSV]
+    Visitor --> Guide[Read header guide]
+    Admin([Administrator]) --> Auth[HTTP Basic authentication]
+    Auth --> Upload[Replace origin JPEG]
+    Auth --> Purge[Purge URL or zone]
+    Auth --> Preview[Compare three previews]
+    Upload --> Version[Read content hash version]
+    Purge --> CF[Cloudflare API]
+    Benchmark --> Routes[Origin / Cloudflare / optional jsDelivr]

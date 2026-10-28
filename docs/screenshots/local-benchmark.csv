@@ -1,0 +1,9 @@
+date,asset,route,run,url,mode,http,ttfb,total,bytes,cache,age,ray,error
+"2026-10-28T19:16:06.095Z","/static/img/photo-01.jpg","Origin","1","http://127.0.0.1:53614/static/img/photo-01.jpg","repeat-url","200","9.299999982118607","28.5","502761","Not exposed","","",""
+"2026-10-28T19:16:06.130Z","/static/img/photo-01.jpg","Cloudflare","1","http://127.0.0.1:53614/static/img/photo-01.jpg","repeat-url","200","3.4000000059604645","11.700000017881393","502761","Not exposed","","",""
+"2026-10-28T19:16:06.142Z","/static/img/photo-15.jpg","Origin","1","http://127.0.0.1:53614/static/img/photo-15.jpg","repeat-url","200","5","16.69999998807907","502029","Not exposed","","",""
+"2026-10-28T19:16:06.159Z","/static/img/photo-15.jpg","Cloudflare","1","http://127.0.0.1:53614/static/img/photo-15.jpg","repeat-url","200","5.5","23.400000005960464","502029","Not exposed","","",""
+"2026-10-28T19:16:06.183Z","/static/css/app.css","Origin","1","http://127.0.0.1:53614/static/css/app.css","repeat-url","200","2.899999976158142","11","4931","Not exposed","","",""
+"2026-10-28T19:16:06.194Z","/static/css/app.css","Cloudflare","1","http://127.0.0.1:53614/static/css/app.css","repeat-url","200","2.2999999821186066","8.199999988079071","4931","Not exposed","","",""
+"2026-10-28T19:16:06.202Z","/static/js/vendor.js","Origin","1","http://127.0.0.1:53614/static/js/vendor.js","repeat-url","200","2.800000011920929","23.599999994039536","545945","Not exposed","","",""
+"2026-10-28T19:16:06.226Z","/static/js/vendor.js","Cloudflare","1","http://127.0.0.1:53614/static/js/vendor.js","repeat-url","200","4.699999988079071","32","545945","Not exposed","","",""
