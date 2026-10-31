@@ -1,5 +1,7 @@
 # Bàn giao phần TV2
 
+> **Cập nhật theo đề gốc:** giao diện đã chuyển sang tiếng Việt và nền hồng loang. Xem `doi-chieu-de-goc.md` và `video-script-TV2-vi.md`. Đề gốc không bắt buộc tiếng Anh; những nhận định ngôn ngữ/template ở phần bàn giao ban đầu bên dưới đã được thay thế bằng căn cứ mới. Báo cáo Word/PDF hiện được duy trì riêng từ bản người dùng đã chỉnh trong `04_BAO_CAO_CDN_LAB`, không dùng generator cũ ghi đè.
+
 Đã đọc toàn bộ kế hoạch. Phần TV2 được triển khai trong chính thư mục `C:\xampp\htdocs\cdn-lab`.
 
 ## Mở bài

@@ -1,5 +1,20 @@
 # CDN Lab – Content Delivery Networks Demo
 
+## Chạy nhanh — bản giao diện tiếng Việt, hồng loang
+
+Đề tài 8, môn **Lập trình Web và Ứng dụng (503073)**. Website minh họa tài nguyên tĩnh, HTTP caching, đo trước/sau CDN và cache invalidation. Nội dung bám đề gốc `503073-Midterm.pdf`; đề không bắt buộc màu giao diện hoặc tiếng Anh. Xem [đối chiếu yêu cầu](docs/doi-chieu-de-goc.md).
+
+1. Cài Node.js 20 trở lên, mở terminal ở thư mục dự án, chạy `npm ci`.
+2. PowerShell: `Copy-Item .env.example .env`. macOS/Linux: `cp .env.example .env`.
+3. Chạy `npm start`, mở **http://localhost:3000**.
+4. Trang quản trị `/admin`: tài khoản local **admin / cdnlab-local-demo**. Đổi mật khẩu khi production; không đưa `.env` và API token lên GitHub.
+
+Các trang chính: **Thư viện ảnh**, **Đo hiệu năng**, **Cách hoạt động**, **Quản trị**. Các mã HTTP, HIT/MISS, TTFB và tên header được giữ nguyên để đối chiếu kỹ thuật. Nhãn CSV dùng tên trường ổn định cho việc xử lý dữ liệu; thông báo và thao tác giao diện dùng tiếng Việt.
+
+Nếu origin và CDN cùng trỏ localhost, số đo là local; không có cache edge thật. Cần TV1 cấu hình domain, HTTPS, cache rules và token để xác nhận purge thật. `npm test` kiểm tra HTTP; `node tools/browser-check.js` dùng Chrome có sẵn trên Windows để kiểm tra giao diện, ngôn ngữ, CSV và cả năm trang ở viewport 390px.
+
+Phần tiếng Anh bên dưới giữ hướng dẫn kỹ thuật chi tiết. Các công cụ `npm run documents`/`tools/export-pdf.js` là bộ tạo bản nháp ban đầu, **không dùng để ghi đè bản báo cáo Word nhóm đã chỉnh sửa theo mẫu**. Bản báo cáo mới được bàn giao riêng trong thư mục `04_BAO_CAO_CDN_LAB` trên máy; không cần để chạy web.
+
 TV2 application deliverable for Web Programming and Applications (503073). This repository implements the origin application specified in KEHOACH (1).docx. It is intended for Azure + Nginx + Cloudflare, not a static hosting service.
 
 ## Quick start (Windows / macOS / Linux)
@@ -106,4 +121,4 @@ Repeat the first request: record actual cache status, Age, CF-Ray and X-Origin-S
 
 `bench/` belongs to TV3: their formal bench.js, curl script, raw measurements and Chapter 6 are not invented here. Team names, student IDs, real URLs and contribution percentages must be supplied by the group; there are no fabricated identities or commit links. Do not submit node_modules, `.env` or tokens.
 
-To generate Word, PowerPoint and diagram images: `npm run documents`. To generate the PDF print layout from the same report content: `node tools/export-pdf.js` (installed Chrome required; set CHROME_PATH on other systems). PDF pagination differs from Word. Local UI verification: `node tools/browser-check.js` (uses installed Chrome on Windows). The Faculty template was not supplied, so the document uses a neutral editable layout for merging into TV1's template. Record a real video with the three students; a script/deck cannot replace their appearance and voices.
+The original document generators create the initial draft; the final Vietnamese report is maintained separately using the supplied Faculty layout and the user's edits. Local UI verification: `node tools/browser-check.js` (uses installed Chrome on Windows). Record a real video with all three students; a script/deck cannot replace their appearance and voices. The original assignment does not mandate English for the app, report or video; follow any additional instruction from the lecturer.
