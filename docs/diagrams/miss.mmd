@@ -1,0 +1,10 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#ffffff","secondaryColor":"#ffffff","tertiaryColor":"#ffffff","primaryTextColor":"#111111","primaryBorderColor":"#111111","lineColor":"#111111","noteBkgColor":"#ffffff","noteTextColor":"#111111","noteBorderColor":"#111111","actorBkg":"#ffffff","actorTextColor":"#111111","actorBorder":"#111111","fontFamily":"Times New Roman"}}}%%
+flowchart TD
+ A([GET asset]) --> M[Edge không có bản dùng được]
+ M --> O[Fetch origin]
+ O --> S[Express trả byte và headers]
+ S --> C{CDN cho phép lưu?}
+ C -->|Có| K[Lưu bản cache]
+ C -->|Không| N[Không lưu]
+ K --> R([Trả browser])
+ N --> R

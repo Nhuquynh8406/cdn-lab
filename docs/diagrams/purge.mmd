@@ -1,0 +1,16 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#ffffff","secondaryColor":"#ffffff","tertiaryColor":"#ffffff","primaryTextColor":"#111111","primaryBorderColor":"#111111","lineColor":"#111111","noteBkgColor":"#ffffff","noteTextColor":"#111111","noteBorderColor":"#111111","actorBkg":"#ffffff","actorTextColor":"#111111","actorBorder":"#111111","fontFamily":"Times New Roman"}}}%%
+sequenceDiagram
+ participant B as Browser admin
+ participant X as Express API
+ participant D as Origin disk
+ participant C as Cloudflare API
+ B->>X: POST JPEG và thông tin xác thực
+ Note over X: Kiểm auth, Origin/header, JPEG và giới hạn
+ X->>D: Ghi temp, rename banner
+ X-->>B: JSON thành công và hash, chưa purge
+ B->>X: POST purge, mode và paths
+ Note over X: Kiểm mode, phạm vi và cấu hình
+ X->>C: Zone purge, timeout 15 giây
+ C-->>X: HTTP và JSON
+ X-->>B: Kiểm success, trả acknowledgement hoặc lỗi
+ Note over B: Nếu purge được nhận: chờ 2 giây rồi đọc preview thật
