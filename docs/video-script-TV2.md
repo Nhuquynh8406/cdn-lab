@@ -1,5 +1,7 @@
 # TV2 English narration and recording cues
 
+> Optional original English script. The original assignment does not mandate English. The app now uses Vietnamese and a pink gradient; video-script-TV2-vi.md provides the matching Vietnamese walkthrough.
+
 Rehearse against the real deployed site. Suggested delivery: 115–130 words/minute, with pauses for actions. Keep the team's total video under 20 minutes. Replace spoken URLs and names with real details; never read placeholders aloud.
 
 ## 04:00–06:30 · Caching and invalidation

@@ -1,5 +1,7 @@
 # CDN Lab — TV2 report contribution
 
+> Initial English contribution retained for reference. The original assignment does not mandate English. The current app uses Vietnamese and a pink gradient; the updated Vietnamese Word/PDF report is maintained separately from the user's edited document. See doi-chieu-de-goc.md for the authoritative requirements.
+
 Web Programming and Applications (503073) · Topic 8: Content Delivery Networks
 
 This contribution covers Sections 2.4–2.5, application analysis and sequence diagrams in Chapter 4, and the application portion of Chapter 5. It describes the accompanying implementation. It does not claim deployment, measured CDN gains, student identities or screenshots that have not been supplied. Merge it into the Faculty template and renumber figures, tables and references with the whole report. The final checklist in the source plan requests English, although earlier paragraphs request Vietnamese; English is used here pending the lecturer's authoritative requirement.

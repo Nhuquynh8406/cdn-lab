@@ -14,7 +14,7 @@ Local automated verification is recorded in `verification.txt`. This checklist i
 | jsDelivr equality | Pinned release with identical asset checksums | TV3 / pending |
 | WAF | /.env edge block; origin 404; no secret disclosed | TV1 / pending |
 | Faculty report formatting | Supplied template, captions and merged reference numbers | TV1 / pending |
-| Recording | Three people visible/speaking, audible English, ≤20 minutes | All / pending |
+| Recording | Every member participates; clear audible narration, ≤20 minutes; original assignment does not mandate English | All / pending |
 
 ## Screenshot captions to collect
 

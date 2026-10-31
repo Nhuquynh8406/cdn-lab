@@ -16,7 +16,7 @@ function createApp(options = {}) {
   const originUrl = base(env.ORIGIN_URL || siteUrl);
   const jsdelivrUrl = env.JSDELIVR_URL ? base(env.JSDELIVR_URL) : '';
   const user = env.ADMIN_USER || 'admin', pass = env.ADMIN_PASS || 'cdnlab-local-demo';
-  if (env.NODE_ENV === 'production' && (!env.ADMIN_PASS || pass === 'cdnlab-local-demo' || pass === 'change-me')) throw new Error('Set a unique ADMIN_PASS before production startup.');
+  if (env.NODE_ENV === 'production' && (!env.ADMIN_PASS || pass === 'cdnlab-local-demo' || pass === 'change-me')) throw new Error('Cần đặt ADMIN_PASS riêng trước khi chạy production.');
   const purger = options.purger || createPurger({ zoneId: env.CF_ZONE_ID, token: env.CF_API_TOKEN });
   const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024, files: 1, fields: 0 } });
   app.disable('x-powered-by');
@@ -30,7 +30,7 @@ function createApp(options = {}) {
     const at = raw.indexOf(':');
     if (at >= 0 && equal(raw.slice(0, at), user) && equal(raw.slice(at + 1), pass)) return next();
     res.set('WWW-Authenticate', 'Basic realm="CDN Lab Admin", charset="UTF-8"');
-    return res.status(401).send('Authentication required');
+    return res.status(401).send('Cần đăng nhập để truy cập');
   }
   app.use(['/admin', '/admin.html', '/api/admin'], auth);
   app.use('/api/admin', (req, res, next) => {
@@ -38,8 +38,8 @@ function createApp(options = {}) {
       const origin = req.get('origin');
       const allowed = new Set([siteUrl, originUrl]);
       if (env.NODE_ENV !== 'production') allowed.add(`http://localhost:${env.PORT || 3000}`);
-      if ((origin && !allowed.has(origin)) || req.get('sec-fetch-site') === 'cross-site') return res.status(403).json({ success: false, message: 'Cross-site admin requests are forbidden.' });
-      if (req.get('x-cdn-lab') !== '1') return res.status(403).json({ success: false, message: 'Missing X-CDN-Lab request header.' });
+      if ((origin && !allowed.has(origin)) || req.get('sec-fetch-site') === 'cross-site') return res.status(403).json({ success: false, message: 'Không chấp nhận yêu cầu quản trị từ website khác.' });
+      if (req.get('x-cdn-lab') !== '1') return res.status(403).json({ success: false, message: 'Thiếu header X-CDN-Lab của yêu cầu quản trị.' });
     }
     next();
   });
@@ -62,38 +62,38 @@ function createApp(options = {}) {
   app.post('/api/admin/replace-banner', upload.single('image'), async (req, res, next) => {
     let temp;
     try {
-      if (!req.file) return res.status(400).json({ success: false, message: 'Select one JPEG image (maximum 5 MB).' });
+      if (!req.file) return res.status(400).json({ success: false, message: 'Hãy chọn một ảnh JPEG, tối đa 5 MiB.' });
       const image = sharp(req.file.buffer, { limitInputPixels: 24000000 });
       let meta;
-      try { meta = await image.metadata(); } catch { return res.status(400).json({ success: false, message: 'The uploaded file is not a valid image.' }); }
-      if (meta.format !== 'jpeg') return res.status(400).json({ success: false, message: 'Only decoded JPEG images are accepted.' });
+      try { meta = await image.metadata(); } catch { return res.status(400).json({ success: false, message: 'Tệp tải lên không phải ảnh hợp lệ.' }); }
+      if (meta.format !== 'jpeg') return res.status(400).json({ success: false, message: 'Chỉ nhận tệp giải mã được thành ảnh JPEG.' });
       const bytes = await image.rotate().jpeg({ quality: 90 }).toBuffer();
       temp = `${bannerPath}.${randomUUID()}.tmp`;
       await fs.writeFile(temp, bytes);
       await fs.rename(temp, bannerPath);
-      res.json({ success: true, v: createHash('sha256').update(bytes).digest('hex').slice(0, 16), message: 'Banner replaced at origin. Edge cache has not been purged.' });
+      res.json({ success: true, v: createHash('sha256').update(bytes).digest('hex').slice(0, 16), message: 'Đã thay banner tại origin. Chưa purge bộ nhớ đệm CDN.' });
     } catch (e) { next(e); } finally { if (temp) await fs.unlink(temp).catch(() => {}); }
   });
   app.post('/api/admin/purge', async (req, res, next) => {
     try {
       const { mode, paths } = req.body || {};
       if (mode === 'everything') return res.json(await purger.purgeEverything());
-      if (mode !== 'files' || !Array.isArray(paths) || paths.length < 1 || paths.length > 30) return res.status(400).json({ success: false, message: 'Use files with 1–30 static paths, or everything.' });
+      if (mode !== 'files' || !Array.isArray(paths) || paths.length < 1 || paths.length > 30) return res.status(400).json({ success: false, message: 'Dùng mode files với 1–30 đường dẫn static hoặc mode everything.' });
       const urls = paths.map(p => {
-        if (typeof p !== 'string' || !p.startsWith('/static/') || /[\\#\r\n]/.test(p)) throw Object.assign(new Error('Only /static/ paths are allowed.'), { status: 400 });
+        if (typeof p !== 'string' || !p.startsWith('/static/') || /[\\#\r\n]/.test(p)) throw Object.assign(new Error('Chỉ chấp nhận đường dẫn trong /static/.'), { status: 400 });
         const u = new URL(p, siteUrl);
-        if (u.origin !== siteUrl || !u.pathname.startsWith('/static/')) throw Object.assign(new Error('Invalid purge path.'), { status: 400 });
+        if (u.origin !== siteUrl || !u.pathname.startsWith('/static/')) throw Object.assign(new Error('Đường dẫn purge không hợp lệ.'), { status: 400 });
         return u.href;
       });
       res.json(await purger.purgeFiles(urls));
     } catch (e) { next(e); }
   });
   app.use(express.static(path.join(__dirname, 'public'), { etag: false, maxAge: 0 }));
-  app.use((req, res) => res.status(404).send('Not found'));
+  app.use((req, res) => res.status(404).send('Không tìm thấy tài nguyên'));
   app.use((err, req, res, next) => {
     const status = err instanceof multer.MulterError ? (err.code === 'LIMIT_FILE_SIZE' ? 413 : 400) : (err.status || 500);
     res.set('Cache-Control', 'no-store');
-    res.status(status).json({ success: false, message: status >= 500 && status !== 502 && status !== 503 ? 'Request failed. Check server configuration and assets.' : err.message });
+    res.status(status).json({ success: false, message: status >= 500 && status !== 502 && status !== 503 ? 'Yêu cầu thất bại. Kiểm tra cấu hình server và tài nguyên.' : err.message });
   });
   return app;
 }
