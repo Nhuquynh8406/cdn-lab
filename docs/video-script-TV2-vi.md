@@ -1,6 +1,6 @@
-# Lời thoại TV2 — giao diện tiếng Việt
+# Lời thoại TV2 - giao diện tiếng Việt
 
-Đọc theo thao tác thực, không đọc số liệu mẫu. Giữ tên kỹ thuật HIT/MISS, TTFB, Cache-Control, purge và versioning, kèm giải thích. Phần TV2 dự kiến 6–7 phút; cả video nhóm không quá 20 phút.
+Đọc theo thao tác thực, không đọc số liệu mẫu. Giữ tên kỹ thuật HIT/MISS, TTFB, Cache-Control, purge và versioning, kèm giải thích. Phần TV2 dự kiến 6-7 phút; cả video nhóm không quá 20 phút.
 
 ## Lý thuyết, khoảng 2 phút
 
@@ -18,7 +18,7 @@ Mở gallery qua origin và CDN thật, chỉ rõ URL. Nếu vẫn local, nói r
 
 “Trang Đo hiệu năng lấy mẫu bốn tài nguyên. TTFB tính từ requestStart đến responseStart; tổng thời gian tính đến khi đọc hết body. Timing không đọc được hiện N/A. CSV giữ lượt thành công, lỗi và lượt đầu tiên.”
 
-Chọn 3–5 lượt, chạy và đọc số liệu thật, xuất CSV. Nêu mạng/thời điểm thử; không nói đây là tốc độ cố định của nhà cung cấp.
+Chọn 3-5 lượt, chạy và đọc số liệu thật, xuất CSV. Nêu mạng/thời điểm thử; không nói đây là tốc độ cố định của nhà cung cấp.
 
 “Ba ảnh quản trị là origin, CDN URL giữ nguyên và CDN URL có phiên bản. Trước khi upload em xác nhận URL CDN đã HIT. Upload chỉ đổi file origin. Nếu edge giữ bản tươi, URL cũ có thể vẫn trả ảnh cũ. URL phiên bản mới yêu cầu khóa khác theo cấu hình cache.”
 

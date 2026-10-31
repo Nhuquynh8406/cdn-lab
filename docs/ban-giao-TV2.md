@@ -16,11 +16,11 @@ Máy local không có CDN: ba ảnh có thể đổi cùng lúc, không có HIT/
 
 ## Những gì đã chuẩn bị
 
-- Source Express, HTML/CSS/JS; gallery 30 JPEG 300–600 KB; cache headers, CORS và Timing-Allow-Origin.
+- Source Express, HTML/CSS/JS; gallery 30 JPEG 300-600 KB; cache headers, CORS và Timing-Allow-Origin.
 - Benchmark đo thật, biểu đồ Chart.js, chế độ URL lặp/query riêng, hủy chạy, xuất CSV và jsDelivr tùy chọn.
 - Admin Basic Auth; kiểm tra JPEG thật; upload thay banner; purge URL/toàn zone; bật/tắt query version; log và ba preview.
 - README tiếng Anh, cấu hình mẫu và hướng dẫn phối hợp triển khai.
-- Nội dung báo cáo tiếng Anh mục 2.4–2.5, phần use case/sequence Chương 4 và ứng dụng Chương 5; bản Markdown và Word trong deliverables.
+- Nội dung báo cáo tiếng Anh mục 2.4-2.5, phần use case/sequence Chương 4 và ứng dụng Chương 5; bản Markdown và Word trong deliverables.
 - Bốn sơ đồ Mermaid chỉnh sửa được, SVG và PNG.
 - Slide PowerPoint 20 trang dùng chung; phần kết quả TV3 ghi rõ cần bổ sung bằng dữ liệu thật.
 - Kịch bản tiếng Anh của TV2 và hướng dẫn quay/dựng video; checklist chụp màn hình và nghiệm thu.
@@ -29,7 +29,7 @@ Máy local không có CDN: ba ảnh có thể đổi cùng lúc, không có HIT/
 
 Kế hoạch có mâu thuẫn: đầu file ghi báo cáo/video tiếng Việt, cuối file và checklist ghi tiếng Anh. Bộ bài dùng tiếng Anh theo checklist cuối; nên đối chiếu đề gốc với giảng viên. Template Khoa không có trong tài liệu, nên Word chưa được tuyên bố đúng template. TV1 cần ghép nội dung và dùng Insert Caption để đánh số hình/bảng theo toàn bài.
 
-Bộ ảnh là texture JPEG tổng hợp tự tạo, không phải ảnh chụp Unsplash/Pexels như gợi ý trong kế hoạch. Nếu giảng viên yêu cầu ảnh chụp, cần thay bằng ảnh có giấy phép/nguồn rõ ràng và đồng bộ cả ba đường tải. File vendor là lodash đầy đủ, khoảng 530 KB, khác gợi ý 200–300 KB; có giữ giấy phép.
+Bộ ảnh là texture JPEG tổng hợp tự tạo, không phải ảnh chụp Unsplash/Pexels như gợi ý trong kế hoạch. Nếu giảng viên yêu cầu ảnh chụp, cần thay bằng ảnh có giấy phép/nguồn rõ ràng và đồng bộ cả ba đường tải. File vendor là lodash đầy đủ, khoảng 530 KB, khác gợi ý 200-300 KB; có giữ giấy phép.
 
 TV1 cần cung cấp domain thực, VM, HTTPS, Cache/Transform/WAF rules, CF_ZONE_ID và token giới hạn zone. Chỉ đặt token trong `.env` trên server, không gửi vào source công khai. Đặt mật khẩu admin riêng khi production và ghi thông tin thực trong bản README nộp riêng. Chưa tạo repo GitHub hoặc PR vì chưa có tài khoản/repo đích; không bịa link commit hay bảng phần trăm đóng góp.
 

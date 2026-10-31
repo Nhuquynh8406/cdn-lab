@@ -22,7 +22,7 @@ function render() {
   for(const rows of groups.values()) {
     const valid=rows.filter(s=>!s.error), last=valid.at(-1), tr=document.createElement('tr');
     const statuses=[...new Set(valid.map(s=>s.cache))].join(', ') || 'Thất bại';
-    for(const value of [rows[0].asset.split('/').at(-1),rows[0].route,`${valid.length}/${rows.length}`,lab.number(lab.median(valid.map(s=>s.ttfb))),lab.number(lab.median(valid.map(s=>s.total))),statuses,last?.age||'—',last?.ray||'—']){const td=document.createElement('td');td.textContent=value;tr.append(td);} tbody.append(tr);
+    for(const value of [rows[0].asset.split('/').at(-1),rows[0].route,`${valid.length}/${rows.length}`,lab.number(lab.median(valid.map(s=>s.ttfb))),lab.number(lab.median(valid.map(s=>s.total))),statuses,last?.age||'-',last?.ray||'-']){const td=document.createElement('td');td.textContent=value;tr.append(td);} tbody.append(tr);
   }
   if(chart) chart.destroy();
   if(!window.Chart){$('status').textContent+=' Không tải được biểu đồ; dữ liệu vẫn có trong bảng và CSV.';return;}

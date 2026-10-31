@@ -1,8 +1,8 @@
-# Shared slide deck — 20 slides
+# Shared slide deck - 20 slides
 
-TV2 supplies the shared deck and owns slides 6–9 and 13–16. TV1 and TV3 must replace their deployment/results notes with real evidence. Presenter notes in the PowerPoint explain those boundaries. This initial deck is in English by choice; the original 503073-Midterm.pdf does not mandate English. The app now uses Vietnamese and a pink gradient theme. Use matching new screenshots when preparing the presentation.
+TV2 supplies the shared deck and owns slides 6-9 and 13-16. TV1 and TV3 must replace their deployment/results notes with real evidence. Presenter notes in the PowerPoint explain those boundaries. This initial deck is in English by choice; the original 503073-Midterm.pdf does not mandate English. The app now uses Vietnamese and a pink gradient theme. Use matching new screenshots when preparing the presentation.
 
-1. CDN Lab — Content Delivery Networks: team names and IDs to be supplied.
+1. CDN Lab - Content Delivery Networks: team names and IDs to be supplied.
 2. Problem and scope: distance, reuse and freshness.
 3. Origin, edge and PoP: request path.
 4. Routing and TLS: TV1's actual deployment explanation.
@@ -23,4 +23,4 @@ TV2 supplies the shared deck and owns slides 6–9 and 13–16. TV1 and TV3 must
 19. Limitations and future work: evidence scope, immutable files and better controls.
 20. Conclusion: each member's lesson and verified demo links.
 
-Timing follows docs/video-script-TV2.md. Keep the full talk under 20 minutes. Never replace the missing results on slides 17–18 with decorative numeric charts.
+Timing follows docs/video-script-TV2.md. Keep the full talk under 20 minutes. Never replace the missing results on slides 17-18 with decorative numeric charts.

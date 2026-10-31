@@ -1,8 +1,6 @@
-sequenceDiagram
-    participant Browser
-    participant Edge as Cloudflare Edge
-    participant Origin as Express Origin
-    Browser->>Edge: GET unchanged asset URL
-    Note over Edge: Matching fresh representation
-    Edge-->>Browser: Cached JPEG + HIT + Age
-    Note over Origin: No request in this simple HIT path
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#ffffff","secondaryColor":"#ffffff","tertiaryColor":"#ffffff","primaryTextColor":"#111111","primaryBorderColor":"#111111","lineColor":"#111111","noteBkgColor":"#ffffff","noteTextColor":"#111111","noteBorderColor":"#111111","actorBkg":"#ffffff","actorTextColor":"#111111","actorBorder":"#111111","fontFamily":"Times New Roman"}}}%%
+flowchart TD
+ A([GET cùng URL]) --> C{Bản cache phù hợp và tươi?}
+ C -->|Có| H[Trả byte cache, HIT và Age]
+ H --> R([Browser đọc body])
+ C -->|Không| O[Upstream theo policy]

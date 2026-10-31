@@ -1,10 +1,10 @@
-# CDN Lab — TV2 report contribution
+# CDN Lab - TV2 report contribution
 
 > Initial English contribution retained for reference. The original assignment does not mandate English. The current app uses Vietnamese and a pink gradient; the updated Vietnamese Word/PDF report is maintained separately from the user's edited document. See doi-chieu-de-goc.md for the authoritative requirements.
 
 Web Programming and Applications (503073) · Topic 8: Content Delivery Networks
 
-This contribution covers Sections 2.4–2.5, application analysis and sequence diagrams in Chapter 4, and the application portion of Chapter 5. It describes the accompanying implementation. It does not claim deployment, measured CDN gains, student identities or screenshots that have not been supplied. Merge it into the Faculty template and renumber figures, tables and references with the whole report. The final checklist in the source plan requests English, although earlier paragraphs request Vietnamese; English is used here pending the lecturer's authoritative requirement.
+This contribution covers Sections 2.4-2.5, application analysis and sequence diagrams in Chapter 4, and the application portion of Chapter 5. It describes the accompanying implementation. It does not claim deployment, measured CDN gains, student identities or screenshots that have not been supplied. Merge it into the Faculty template and renumber figures, tables and references with the whole report. The final checklist in the source plan requests English, although earlier paragraphs request Vietnamese; English is used here pending the lecturer's authoritative requirement.
 
 ## 2.4 HTTP Caching
 
@@ -107,7 +107,7 @@ Table 2.5-1. Strategy comparison for the lab.
 | Exact URL purge | Updates a stable public URL on demand | Requires credentials and propagation checks | Purge log plus subsequent actual image/header |
 | Versioned URL | New clients request a different key | References must update; old files should be retained | Panel 3 query hash; compare checkbox states |
 
-## 4. System Analysis and Design — TV2 contribution
+## 4. System Analysis and Design - TV2 contribution
 
 ### 4.1 Purpose, actors and scope
 
@@ -143,7 +143,7 @@ The purge diagram begins with an authenticated browser upload. The server decode
 
 Figure 4.3-1 through Figure 4.3-4. Use case, MISS, HIT and purge diagrams are supplied as source plus PNG/SVG. Their titles and numbering should be replaced with Word Insert Caption fields when TV1 merges the report. These are design diagrams, not screenshots of a live deployment.
 
-## 5. Application Implementation — TV2 contribution
+## 5. Application Implementation - TV2 contribution
 
 ### 5.1 Project organization and navigation
 
@@ -153,7 +153,7 @@ The landing page introduces three tasks: load the gallery, measure requests and 
 
 ### 5.2 Static payload and cache configuration
 
-The gallery contains 30 generated JPEG textures in the requested 300–600 KB range, a shared CSS file and a licensed lodash JavaScript payload. The source plan suggested royalty-free photographs; generated textures are a documented substitution that gives repeatable files without unverified photo licensing. They should be described as synthetic test images. If the lecturer requires photographs specifically, replace the files with properly attributed photographs and republish exactly the same bytes through every route before measuring.
+The gallery contains 30 generated JPEG textures in the requested 300-600 KB range, a shared CSS file and a licensed lodash JavaScript payload. The source plan suggested royalty-free photographs; generated textures are a documented substitution that gives repeatable files without unverified photo licensing. They should be described as synthetic test images. If the lecturer requires photographs specifically, replace the files with properly attributed photographs and republish exactly the same bytes through every route before measuring.
 
 Every successful static response includes public browser/shared freshness directives, cross-origin read permission, exposed metadata fields and Timing-Allow-Origin. The application timestamp is attached at origin service time. ETags and Last-Modified allow conditional retrieval. An automated test verifies both the ordinary static response and a matching If-None-Match request. HTML and JSON responses stay no-store; caching the admin shell or API indiscriminately at the CDN would violate the intended boundary.
 

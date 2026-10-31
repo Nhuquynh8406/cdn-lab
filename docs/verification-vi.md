@@ -1,4 +1,4 @@
-# Kiểm tra bản tiếng Việt và hồng loang — 31/10/2026
+# Kiểm tra bản tiếng Việt và hồng loang - 31/10/2026
 
 - `npm test`: 8 test/subtest đạt, không lỗi. Đã kiểm tra xác thực, no-store, static/CORS/timing, conditional 304, upload JPEG, version và payload/lỗi purge với transport giả lập.
 - `node tools/browser-check.js`: đạt. 30 JPEG tải thành công; 8 dòng tổng hợp local cho 4 asset × 2 nhãn tuyến; không lỗi yêu cầu; tải CSV được; preview hoạt động và purge bị khóa khi chưa cấu hình.

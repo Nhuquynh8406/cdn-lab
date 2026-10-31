@@ -1,0 +1,8 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#ffffff","secondaryColor":"#ffffff","tertiaryColor":"#ffffff","primaryTextColor":"#111111","primaryBorderColor":"#111111","lineColor":"#111111","noteBkgColor":"#ffffff","noteTextColor":"#111111","noteBorderColor":"#111111","actorBkg":"#ffffff","actorTextColor":"#111111","actorBorder":"#111111","fontFamily":"Times New Roman"}}}%%
+flowchart LR
+ B[Browser] --> E[Cloudflare edge]
+ B -->|Origin trực tiếp| N[Nginx]
+ E -->|Upstream khi cần| N
+ N --> X[Express]
+ X --> F[Filesystem static]
+ B --> J[jsDelivr release tùy chọn]

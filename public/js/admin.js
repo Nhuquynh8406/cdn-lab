@@ -8,7 +8,7 @@ async function preview(imgId,infoId,url){
   if(!res.ok)throw new Error(`HTTP ${res.status}`);
   const blob=await res.blob(),objectUrl=URL.createObjectURL(blob);
   const old=objectUrls.get(imgId);$(imgId).src=objectUrl;objectUrls.set(imgId,objectUrl);if(old)URL.revokeObjectURL(old);
-  $(infoId).textContent=`${res.headers.get('cf-cache-status')||'Không đọc được trạng thái cache'} · Age ${res.headers.get('age')||'—'} · Ray ${res.headers.get('cf-ray')||'—'} · Origin phục vụ ${res.headers.get('x-origin-served-at')||'—'} · ${url}`;
+  $(infoId).textContent=`${res.headers.get('cf-cache-status')||'Không đọc được trạng thái cache'} · Age ${res.headers.get('age')||'-'} · Ray ${res.headers.get('cf-ray')||'-'} · Origin phục vụ ${res.headers.get('x-origin-served-at')||'-'} · ${url}`;
  }catch(e){$(infoId).textContent='Không tải được ảnh: '+e.message;log(e.message);}
 }
 async function refresh(){
@@ -24,4 +24,4 @@ async function purge(mode){
 $('uploadForm').onsubmit=e=>{e.preventDefault();const form=new FormData(e.target);action(async()=>{const data=await lab.json('/api/admin/replace-banner',{method:'POST',headers:{'X-CDN-Lab':'1'},body:form});log(data.message);await refresh();});};
 $('refreshBtn').onclick=()=>action(refresh);$('versioning').onchange=()=>action(refresh);$('purgeUrlBtn').onclick=()=>purge('files');$('purgeAllBtn').onclick=()=>purge('everything');
 window.addEventListener('pagehide',()=>objectUrls.forEach(URL.revokeObjectURL));
-action(async()=>{config=await lab.json('/api/config');$('environment').textContent=(config.localMode?'CHẾ ĐỘ LOCAL — chưa có cache edge. Ba ảnh đều lấy nội dung origin. ':'ĐƯỜNG TẢI THỰC — kiểm tra header để xác nhận cache. ')+(config.purgeConfigured?'Đã có cấu hình gọi purge.':'Chưa thể purge: cần TV1 cấu hình thông tin Cloudflare.');await refresh();});
+action(async()=>{config=await lab.json('/api/config');$('environment').textContent=(config.localMode?'CHẾ ĐỘ LOCAL - chưa có cache edge. Ba ảnh đều lấy nội dung origin. ':'ĐƯỜNG TẢI THỰC - kiểm tra header để xác nhận cache. ')+(config.purgeConfigured?'Đã có cấu hình gọi purge.':'Chưa thể purge: cần TV1 cấu hình thông tin Cloudflare.');await refresh();});

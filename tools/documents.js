@@ -5,23 +5,7 @@ const {Document,Packer,Paragraph,TextRun,HeadingLevel,Table,TableRow,TableCell,W
 const pptxgen=require('pptxgenjs');
 const escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 
-async function sequence(name,title,actors,events){
- const w=1200,h=160+events.length*82, xs=actors.map((_,i)=>100+i*(1000/(actors.length-1)));
- let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0 0 L10 4 L0 8 Z" fill="#187e78"/></marker></defs><rect width="1200" height="${h}" fill="#fffef8"/><text x="40" y="35" font-family="Arial" font-size="24" font-weight="bold" fill="#183d3b">${escape(title)}</text>`;
- actors.forEach((actor,i)=>{svg+=`<rect x="${xs[i]-87}" y="60" width="174" height="48" rx="6" fill="#183d3b"/><text x="${xs[i]}" y="89" text-anchor="middle" font-family="Arial" font-size="16" fill="white">${escape(actor)}</text><line x1="${xs[i]}" y1="108" x2="${xs[i]}" y2="${h-20}" stroke="#a1b8ab" stroke-dasharray="7 6"/>`;});
- events.forEach(([from,to,label],i)=>{const y=158+i*82;if(from===to){svg+=`<rect x="${xs[from]-85}" y="${y-25}" width="170" height="45" rx="5" fill="#e6edcf"/><text x="${xs[from]}" y="${y+2}" text-anchor="middle" font-family="Arial" font-size="13" fill="#183d3b">${escape(label)}</text>`;}else{svg+=`<line x1="${xs[from]}" y1="${y}" x2="${xs[to]}" y2="${y}" stroke="#187e78" stroke-width="2" marker-end="url(#arrow)"/><text x="${(xs[from]+xs[to])/2}" y="${y-12}" text-anchor="middle" font-family="Arial" font-size="15" fill="#183d3b">${escape(label)}</text>`;}});
- svg+='</svg>';await fs.writeFile(`docs/diagrams/${name}.svg`,svg);await sharp(Buffer.from(svg)).png().toFile(`docs/diagrams/${name}.png`);
-}
-async function diagrams(){
- await sequence('miss','Cache MISS — simple eligible one-tier response',['Browser','Cloudflare Edge','Express Origin'],[[0,1,'GET /static/img/banner.jpg'],[1,1,'No reusable entry'],[1,2,'Fetch from origin'],[2,1,'200 JPEG + cache policy'],[1,1,'Store if eligible'],[1,0,'Response + observed status']]);
- await sequence('hit','Cache HIT — reuse a fresh edge response',['Browser','Cloudflare Edge','Express Origin'],[[0,1,'GET unchanged asset URL'],[1,1,'Fresh matching entry'],[1,0,'Cached JPEG + HIT + Age'],[2,2,'No origin request']]);
- await sequence('purge','Origin replacement and explicit cache invalidation',['Admin Browser','Express App','Origin Disk','Purge API'],[[0,1,'Authenticated JPEG upload'],[1,2,'Decode, write temp, rename'],[1,0,'Updated hash; no purge yet'],[0,1,'POST exact URL purge'],[1,3,'Zone-scoped purge request'],[3,1,'Success or failure'],[1,0,'Checked acknowledgement'],[0,0,'Reload; inspect edge']]);
- const nodes=[['Visitor',80,180],['Administrator',80,400],['Gallery + guide',480,120],['Benchmark + CSV',480,250],['Auth + image upload',480,380],['Auth + purge',480,510],['Cloudflare API',950,510]];
- let svg='<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680"><rect width="1200" height="680" fill="#fffef8"/><text x="40" y="50" font-family="Arial" font-size="28" fill="#183d3b">CDN Lab — actors and use cases</text><rect x="390" y="80" width="400" height="540" rx="15" fill="#e6edcf"/>';
- for(const [a,b] of [[0,2],[0,3],[1,4],[1,5],[5,6]]){const [,x,y]=nodes[a],[,u,v]=nodes[b];svg+=`<line x1="${x+90}" y1="${y+30}" x2="${u}" y2="${v+30}" stroke="#187e78" stroke-width="3"/>`;}
- for(const [label,x,y] of nodes)svg+=`<rect x="${x}" y="${y}" width="190" height="60" rx="20" fill="#183d3b"/><text x="${x+95}" y="${y+36}" text-anchor="middle" font-family="Arial" font-size="17" fill="white">${escape(label)}</text>`;
- svg+='</svg>';await fs.writeFile('docs/diagrams/use-case.svg',svg);await sharp(Buffer.from(svg)).png().toFile('docs/diagrams/use-case.png');
-}
+async function diagrams(){ await require('./draw-flows').generateDiagrams(); }
 function paragraph(text,options={}){return new Paragraph({children:[new TextRun({text,...(options.run||{})})],spacing:{after:150,line:300},...options});}
 async function report(){
  const source=await fs.readFile('docs/TV2-report.md','utf8'),lines=source.split(/\r?\n/),children=[];
@@ -42,7 +26,7 @@ async function report(){
  children.push(paragraph('Local application screenshots',{heading:HeadingLevel.HEADING_1}));
  children.push(paragraph('These captures show an isolated local test server, not a real Cloudflare deployment. Timing values are local observations and must not be used as the production performance comparison.'));
  for(const name of ['home','benchmark','admin']){try{const data=await fs.readFile(`docs/screenshots/local-${name}.png`),meta=await sharp(data).metadata(),height=Math.min(650,600*meta.height/meta.width),width=height*meta.width/meta.height;children.push(new Paragraph({children:[new ImageRun({data,type:'png',transformation:{width:Math.round(width),height:Math.round(height)}})]}));children.push(paragraph(`Local screenshot: ${name}. No edge-cache verification is implied.`,{run:{italics:true,size:20}}));}catch(e){if(e.code!=='ENOENT')throw e;}}
- const doc=new Document({creator:'CDN Lab – TV2 contribution',title:'CDN Lab – TV2 Report Contribution',styles:{default:{document:{run:{font:'Times New Roman',size:24},paragraph:{spacing:{after:150,line:300}}}}},sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:1134,bottom:1134,left:1417,right:1134}}},footers:{default:new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun('TV2 contribution · '),new TextRun({children:[PageNumber.CURRENT]})]})]})},children}]});
+ const doc=new Document({creator:'CDN Lab - TV2 contribution',title:'CDN Lab - TV2 Report Contribution',styles:{default:{document:{run:{font:'Times New Roman',size:24},paragraph:{spacing:{after:150,line:300}}}}},sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:1134,bottom:1134,left:1417,right:1134}}},footers:{default:new Footer({children:[new Paragraph({alignment:AlignmentType.CENTER,children:[new TextRun('TV2 contribution · '),new TextRun({children:[PageNumber.CURRENT]})]})]})},children}]});
  await fs.writeFile('deliverables/TV2_Report.docx',await Packer.toBuffer(doc));
 }
 const slides=[
@@ -59,16 +43,16 @@ const slides=[
  ['Two CDN models','Cloudflare and jsDelivr',['Cloudflare proxies the project hostname.','jsDelivr serves a pinned public repository release.','Control and invalidation workflows differ.'],'TV3: add researched comparison; do not claim identical control features.'],
  ['Deployment policy','Cache public assets; bypass private operations',['www /static/: eligible for caching.','/api/ and /admin: bypass; HTML stays no-store.','TV1: DNS, TLS, transform and WAF evidence.'],'TV1 08:30: show actual dashboard screenshots and token permission scope.'],
  ['The application','Load → measure → invalidate',['Gallery: 30 JPEGs over relative static paths.','Benchmark: four sample assets and raw CSV.','Admin: controlled origin replacement and purge.'],'TV2 10:30: switch to real website; show gallery over both hosts.'],
- ['Measure honestly','Real samples, visible uncertainty',['TTFB: responseStart minus requestStart.','Total: fetch until full body consumption.','N/A for blocked timing; keep errors and run 1.'],'TV2: run 3–5 samples during recording, export CSV. Distinguish request TTFB from curl time_starttransfer.'],
+ ['Measure honestly','Real samples, visible uncertainty',['TTFB: responseStart minus requestStart.','Total: fetch until full body consumption.','N/A for blocked timing; keep errors and run 1.'],'TV2: run 3-5 samples during recording, export CSV. Distinguish request TTFB from curl time_starttransfer.'],
  ['Live invalidation','Warm → replace → compare → purge',['Confirm the unchanged URL is actually HIT.','Upload banner B; inspect all three panels.','Purge stable URL; reload and read actual state.'],'TV2: do not continue a failed stale experiment as if it succeeded.','purge'],
  ['Inside the implementation','Boundaries that make the demo reliable',['Basic Auth and cross-site write checks.','Decoded JPEG validation and atomic replacement.','Server-only token; checked purge acknowledgement.'],'TV2: show short relevant snippets; never show .env or API token.'],
- ['Performance results','TV3 — insert measured chart',['Required: origin / CDN MISS / CDN HIT / jsDelivr.','State network, location, time window and sample count.','Insert CSV-backed medians, not illustrative values.'],'TV3 14:30: this slide intentionally contains no fabricated chart. Replace with actual evidence.'],
- ['Evaluate the whole page','TV3 — add real evaluation evidence',['Lighthouse LCP and full gallery transfer.','Light controlled load and origin request logs.','Origin offload = 1 − origin requests / total requests.'],'TV3: state denominator and uncertainty; add actual outputs and Cloudflare Analytics.'],
+ ['Performance results','TV3 - insert measured chart',['Required: origin / CDN MISS / CDN HIT / jsDelivr.','State network, location, time window and sample count.','Insert CSV-backed medians, not illustrative values.'],'TV3 14:30: this slide intentionally contains no fabricated chart. Replace with actual evidence.'],
+ ['Evaluate the whole page','TV3 - add real evaluation evidence',['Lighthouse LCP and full gallery transfer.','Light controlled load and origin request logs.','Origin offload = 1 - origin requests / total requests.'],'TV3: state denominator and uncertainty; add actual outputs and Cloudflare Analytics.'],
  ['Limits and next steps','Keep claims within the evidence',['Local tests do not verify edge propagation.','Query versions are not immutable archived files.','Next: fingerprinted assets and controlled repetitions.'],'All: explain an actual difficulty each member encountered and resolved.'],
  ['What we learned','Measure the route. Verify freshness.',['TV1: infrastructure and delivery policy.','TV2: application, cache boundaries and invalidation.','TV3: reproducible measurement and comparison.'],'All 17:00: add verified demo/repository/video links and real names.']
 ];
 async function deck(){
- const pptx=new pptxgen();pptx.layout='LAYOUT_WIDE';pptx.author='CDN Lab – TV2';pptx.subject='Shared presentation; real results to be supplied by TV3';pptx.title='CDN Lab – Content Delivery Networks';pptx.lang='en-US';pptx.theme={headFontFace:'Aptos Display',bodyFontFace:'Aptos',lang:'en-US'};
+ const pptx=new pptxgen();pptx.layout='LAYOUT_WIDE';pptx.author='CDN Lab - TV2';pptx.subject='Shared presentation; real results to be supplied by TV3';pptx.title='CDN Lab - Content Delivery Networks';pptx.lang='en-US';pptx.theme={headFontFace:'Aptos Display',bodyFontFace:'Aptos',lang:'en-US'};
  for(let i=0;i<slides.length;i++){
   const [title,sub,bullets,notes,image]=slides[i],s=pptx.addSlide();s.background={color:'F5F4EC'};
   s.addText('CDN / LAB',{x:.65,y:.35,w:5,h:.3,fontSize:13,bold:true,color:'187E78',charSpacing:3});

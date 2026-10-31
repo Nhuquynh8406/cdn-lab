@@ -2,7 +2,7 @@
   "name": "cdn-lab",
   "version": "1.0.0",
   "private": true,
-  "description": "TV2 — origin, Cloudflare and jsDelivr teaching lab",
+  "description": "TV2 - origin, Cloudflare and jsDelivr teaching lab",
   "engines": {
     "node": ">=20"
   },
@@ -11,7 +11,8 @@
     "dev": "node --watch server.js",
     "test": "node --test",
     "assets": "node tools/prepare-assets.js",
-    "documents": "node tools/documents.js"
+    "documents": "node tools/documents.js",
+    "diagrams": "node tools/draw-flows.js"
   },
   "dependencies": {
     "chart.js": "^4.5.1",

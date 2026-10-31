@@ -1,0 +1,17 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#ffffff","secondaryColor":"#ffffff","tertiaryColor":"#ffffff","primaryTextColor":"#111111","primaryBorderColor":"#111111","lineColor":"#111111","noteBkgColor":"#ffffff","noteTextColor":"#111111","noteBorderColor":"#111111","actorBkg":"#ffffff","actorTextColor":"#111111","actorBorder":"#111111","fontFamily":"Times New Roman"}}}%%
+flowchart TD
+ R([Chạy đo]) --> C[Đọc config và kiểm số lượt]
+ C --> L[Lặp asset, lượt, tuyến; đảo thứ tự]
+ L --> S{Đã dừng?}
+ S -->|Có| P[Gom kết quả đã có]
+ S -->|Không| F[Fetch, đọc body, kiểm HTTP]
+ F --> E{Lỗi?}
+ E -->|Không| V[Lưu timing, bytes và headers]
+ E -->|Có| A{Request đã hủy?}
+ A -->|Có| P
+ A -->|Không| X[Lưu mẫu lỗi]
+ V --> N{Còn mẫu?}
+ X --> N
+ N -->|Có| L
+ N -->|Không| P
+ P --> T[Median mẫu thành công, chart và CSV]
