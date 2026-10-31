@@ -11,6 +11,8 @@
 
 Các trang chính: **Thư viện ảnh**, **Đo hiệu năng**, **Cách hoạt động**, **Quản trị**. Các mã HTTP, HIT/MISS, TTFB và tên header được giữ nguyên để đối chiếu kỹ thuật. Nhãn CSV dùng tên trường ổn định cho việc xử lý dữ liệu; thông báo và thao tác giao diện dùng tiếng Việt.
 
+Ảnh trong thư viện và preview quản trị hiển thị tông hồng bằng CSS filter. File JPEG gốc, hash phiên bản và byte tải về vẫn giữ nguyên; khi mở trực tiếp URL ảnh ngoài giao diện có thể vẫn thấy màu gốc. Viền hồng đặt ở khung chứa để không bị filter đổi màu.
+
 Nếu origin và CDN cùng trỏ localhost, số đo là local; không có cache edge thật. Cần TV1 cấu hình domain, HTTPS, cache rules và token để xác nhận purge thật. `npm test` kiểm tra HTTP; `node tools/browser-check.js` dùng Chrome có sẵn trên Windows để kiểm tra giao diện, ngôn ngữ, CSV và cả năm trang ở viewport 390px.
 
 Phần tiếng Anh bên dưới giữ hướng dẫn kỹ thuật chi tiết. Các công cụ `npm run documents`/`tools/export-pdf.js` là bộ tạo bản nháp ban đầu, **không dùng để ghi đè bản báo cáo Word nhóm đã chỉnh sửa theo mẫu**. Bản báo cáo mới được bàn giao riêng trong thư mục `04_BAO_CAO_CDN_LAB` trên máy; không cần để chạy web.
