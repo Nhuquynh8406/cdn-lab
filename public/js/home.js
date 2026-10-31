@@ -1,0 +1,1 @@
+lab.json('/api/config').then(c => { document.getElementById('environment').textContent = c.localMode ? 'CHẾ ĐỘ LOCAL - origin và CDN đang trỏ cùng máy chủ. Đây là số đo local, chưa có bộ nhớ đệm edge.' : `ĐƯỜNG TẢI THỰC - Origin: ${c.originUrl} · Cloudflare: ${c.siteUrl}`; }).catch(e => { document.getElementById('environment').textContent = e.message; });

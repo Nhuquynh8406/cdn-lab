@@ -1,0 +1,9 @@
+date,asset,route,run,url,mode,http,ttfb,total,bytes,cache,age,ray,error
+"2026-10-31T15:11:23.942Z","/static/img/photo-01.jpg","Origin","1","http://127.0.0.1:63273/static/img/photo-01.jpg","repeat-url","200","9.600000008940697","54.599999994039536","502761","Không đọc được","","",""
+"2026-10-31T15:11:24.006Z","/static/img/photo-01.jpg","Cloudflare","1","http://127.0.0.1:63273/static/img/photo-01.jpg","repeat-url","200","4.899999991059303","17.700000002980232","502761","Không đọc được","","",""
+"2026-10-31T15:11:24.024Z","/static/img/photo-15.jpg","Origin","1","http://127.0.0.1:63273/static/img/photo-15.jpg","repeat-url","200","3.4000000059604645","13.5","502029","Không đọc được","","",""
+"2026-10-31T15:11:24.038Z","/static/img/photo-15.jpg","Cloudflare","1","http://127.0.0.1:63273/static/img/photo-15.jpg","repeat-url","200","3.7000000029802322","22","502029","Không đọc được","","",""
+"2026-10-31T15:11:24.060Z","/static/css/app.css","Origin","1","http://127.0.0.1:63273/static/css/app.css","repeat-url","200","1.7999999970197678","7.5","6267","Không đọc được","","",""
+"2026-10-31T15:11:24.068Z","/static/css/app.css","Cloudflare","1","http://127.0.0.1:63273/static/css/app.css","repeat-url","200","3","9.700000002980232","6267","Không đọc được","","",""
+"2026-10-31T15:11:24.078Z","/static/js/vendor.js","Origin","1","http://127.0.0.1:63273/static/js/vendor.js","repeat-url","200","4.0999999940395355","20.900000005960464","545945","Không đọc được","","",""
+"2026-10-31T15:11:24.099Z","/static/js/vendor.js","Cloudflare","1","http://127.0.0.1:63273/static/js/vendor.js","repeat-url","200","7.5","22.100000008940697","545945","Không đọc được","","",""
