@@ -1,11 +1,9 @@
-flowchart LR
-    Visitor([Visitor]) --> Gallery[View 30-image gallery]
-    Visitor --> Benchmark[Measure routes and export CSV]
-    Visitor --> Guide[Read header guide]
-    Admin([Administrator]) --> Auth[HTTP Basic authentication]
-    Auth --> Upload[Replace origin JPEG]
-    Auth --> Purge[Purge URL or zone]
-    Auth --> Preview[Compare three previews]
-    Upload --> Version[Read content hash version]
-    Purge --> CF[Cloudflare API]
-    Benchmark --> Routes[Origin / Cloudflare / optional jsDelivr]
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#ffffff","secondaryColor":"#ffffff","tertiaryColor":"#ffffff","primaryTextColor":"#111111","primaryBorderColor":"#111111","lineColor":"#111111","noteBkgColor":"#ffffff","noteTextColor":"#111111","noteBorderColor":"#111111","actorBkg":"#ffffff","actorTextColor":"#111111","actorBorder":"#111111","fontFamily":"Times New Roman"}}}%%
+flowchart TD
+ A([Trình duyệt]) --> H[GET /]
+ H --> G[Gallery: /static/img/*]
+ H --> B[Benchmark: fetch các tuyến]
+ H --> I[Hướng dẫn HTTP]
+ H --> AU{Basic Auth hợp lệ?}
+ AU -->|Không| E[HTTP 401]
+ AU -->|Có| AD[admin.html và API quản trị]

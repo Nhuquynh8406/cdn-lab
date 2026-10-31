@@ -2,9 +2,9 @@
 
 > Optional original English script. The original assignment does not mandate English. The app now uses Vietnamese and a pink gradient; video-script-TV2-vi.md provides the matching Vietnamese walkthrough.
 
-Rehearse against the real deployed site. Suggested delivery: 115–130 words/minute, with pauses for actions. Keep the team's total video under 20 minutes. Replace spoken URLs and names with real details; never read placeholders aloud.
+Rehearse against the real deployed site. Suggested delivery: 115-130 words/minute, with pauses for actions. Keep the team's total video under 20 minutes. Replace spoken URLs and names with real details; never read placeholders aloud.
 
-## 04:00–06:30 · Caching and invalidation
+## 04:00-06:30 · Caching and invalidation
 
 “I will explain the two cache layers in our experiment. The browser has a private cache, and the CDN operates a shared cache at the edge. A fast page load is not enough to prove an edge cache hit, because the browser might have reused a local copy. That is why our lab makes a new network request and displays the response headers.
 
@@ -18,7 +18,7 @@ There are three main strategies for refreshing content. We can wait for the fres
 
 Show: header table, HIT/MISS diagrams and strategy comparison. Pause briefly between strategies.
 
-## 10:30–14:30 · Application demo
+## 10:30-14:30 · Application demo
 
 “This is our gallery. It loads thirty JPEG files using relative static paths. I will open the same page through the direct origin and through the proxied hostname. The resource selection stays the same; the delivery route changes. We will compare performance using recorded measurements rather than judging by appearance alone.”
 
@@ -44,12 +44,12 @@ Finally, this blocked path demonstrates TV1's WAF rule. We compare the edge resp
 
 Action: show `/.env` status on actual hosts without opening or displaying any real .env contents. Open only short relevant snippets in server.js and lib/cloudflare.js, never the private environment file.
 
-## Closing contribution · 20–25 seconds
+## Closing contribution · 20-25 seconds
 
 “My main lesson is that updating an origin file and refreshing a distributed cache are separate operations. A useful demo must also distinguish browser caching from edge caching and make missing evidence visible. Our next improvement would use immutable fingerprinted files with retained versions and a more controlled measurement protocol.”
 
 ## Recording and edit instructions
 
-Use the shared 20-slide deck. TV1 covers 00:00–04:00 and 08:30–10:30; TV3 covers 06:30–08:30 and 14:30–17:00. Each speaker supplies their own camera/audio clip or records together in Meet. Leave time for the conclusion and avoid exceeding 20 minutes. These are target intervals, not a claim that an actual video exists.
+Use the shared 20-slide deck. TV1 covers 00:00-04:00 and 08:30-10:30; TV3 covers 06:30-08:30 and 14:30-17:00. Each speaker supplies their own camera/audio clip or records together in Meet. Leave time for the conclusion and avoid exceeding 20 minutes. These are target intervals, not a claim that an actual video exists.
 
 In OBS capture 1920×1080 and a legible browser zoom. Record a ten-second microphone test. Keep tokens and password manager windows off-screen. In CapCut trim silence without removing evidence needed to understand an operation; add the real speaker's name as a lower third; keep the cache header zoom readable; normalize speech volume; export MP4/H.264 at 1080p. Watch the full export and check that all three students appear and speak, then test the sharing link in an incognito window. Retain an uncut original of the cache experiment as evidence.

@@ -19,7 +19,7 @@
 | Đo trước/sau CDN | Bốn asset, chart và raw CSV | Công cụ có; local không chứng minh tăng tốc CDN |
 | Invalidation/custom rules | Upload, URL version, Purge API, đọc headers | Cần domain/token/rules thật để nghiệm thu edge |
 | Báo cáo Word và PDF | Bản riêng được giữ từ tài liệu người dùng đã sửa | Đã cập nhật theo mẫu và Heading |
-| 20–60 trang không kể bìa/phụ lục | Cập nhật mục lục và xuất PDF qua Word | Kiểm số trang trước nộp |
+| 20-60 trang không kể bìa/phụ lục | Cập nhật mục lục và xuất PDF qua Word | Kiểm số trang trước nộp |
 | Source + dependency + README | Repo, package-lock và hướng dẫn local | Có; cần TV3 thử cài trên máy sạch |
 | Video có tiếng, tối đa 20 phút | Cả ba người trình bày lý thuyết, demo, kiến trúc, code chính | Cần tự quay; không có video giả |
 

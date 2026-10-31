@@ -78,7 +78,7 @@ function createApp(options = {}) {
     try {
       const { mode, paths } = req.body || {};
       if (mode === 'everything') return res.json(await purger.purgeEverything());
-      if (mode !== 'files' || !Array.isArray(paths) || paths.length < 1 || paths.length > 30) return res.status(400).json({ success: false, message: 'Dùng mode files với 1–30 đường dẫn static hoặc mode everything.' });
+      if (mode !== 'files' || !Array.isArray(paths) || paths.length < 1 || paths.length > 30) return res.status(400).json({ success: false, message: 'Dùng mode files với 1-30 đường dẫn static hoặc mode everything.' });
       const urls = paths.map(p => {
         if (typeof p !== 'string' || !p.startsWith('/static/') || /[\\#\r\n]/.test(p)) throw Object.assign(new Error('Chỉ chấp nhận đường dẫn trong /static/.'), { status: 400 });
         const u = new URL(p, siteUrl);

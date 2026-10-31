@@ -1,4 +1,4 @@
-CDN Lab TV2 — local verification, 29 October 2026
+CDN Lab TV2 - local verification, 29 October 2026
 
 Environment: Windows; Node.js v24.19.0; npm 11.17.0; installed Google Chrome headless via Playwright.
 
@@ -10,7 +10,7 @@ Validated: gallery has 30 successfully loaded JPEGs; one run per asset yields ei
 The browser check overrides route configuration to its isolated ephemeral test server. No Cloudflare account or live origin was involved.
 
 npm run assets: PASS.
-30 JPEGs, 497006–502910 bytes each; synthetic locally generated textures. Two upload banners and a licensed lodash payload prepared.
+30 JPEGs, 497006-502910 bytes each; synthetic locally generated textures. Two upload banners and a licensed lodash payload prepared.
 
 npm run documents: produces Word report, twenty-slide PowerPoint and four PNG/SVG diagram exports. Mermaid sources retained. Sharp emitted font-cache-directory warnings under the sandbox; exported PNGs were viewed and text was present and readable.
 

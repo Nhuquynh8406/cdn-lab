@@ -25,5 +25,5 @@ async function texture(seed, banner=false){
  await fs.copyFile(require.resolve('lodash/lodash.js'),'static/js/vendor.js');
  await fs.copyFile(require.resolve('lodash/LICENSE'),'static/js/vendor.LICENSE.txt');
  await fs.writeFile('static/asset-manifest.json',JSON.stringify(manifest,null,2));
- console.log(`Prepared ${manifest.length} JPEGs (${Math.min(...manifest.map(x=>x.bytes))}–${Math.max(...manifest.map(x=>x.bytes))} bytes), two demo banners and lodash payload.`);
+ console.log(`Prepared ${manifest.length} JPEGs (${Math.min(...manifest.map(x=>x.bytes))}-${Math.max(...manifest.map(x=>x.bytes))} bytes), two demo banners and lodash payload.`);
 })().catch(e=>{console.error(e.message);process.exitCode=1;});
