@@ -2,3 +2,8 @@
 
 /* Nền hồng loang bằng CSS, không tải thêm ảnh nền. */
 body{min-height:100vh;background:radial-gradient(ellipse at 4% 8%,#f8cfe3 0,transparent 42%),radial-gradient(ellipse at 96% 28%,#f3d7fb 0,transparent 44%),radial-gradient(ellipse at 40% 95%,#ffdce9 0,transparent 48%),linear-gradient(145deg,#fffafb,#fff3f9 55%,#faf1ff);background-attachment:scroll}header{background:#fffafc70}.panel,.card{box-shadow:0 6px 28px #a72d6608}.network{background:linear-gradient(135deg,#ffe4ef,#f0ddfa)}.button,button{background:linear-gradient(120deg,#a72d66,#833b86);border-color:#963264}.secondary{background:#fff9fc;color:var(--ink);border-color:var(--line)}.danger{background:#992e50;border-color:#992e50}.notice{background:#fff0f7e8}table th{color:#684052}nav a:hover,nav a[aria-current]{color:#a72d66}h1{font-size:clamp(36px,4.5vw,64px);line-height:1.18;letter-spacing:-2px}.hero{gap:42px}.hero .lead{max-width:600px}.network{transform:rotate(-1deg)}@media(max-width:800px){h1{letter-spacing:-1px}.toolbar{align-items:stretch}.toolbar button{align-self:flex-end}}
+
+/* Chỉ đổi tông hiển thị; byte ảnh và dữ liệu benchmark không thay đổi. */
+.gallery img,.previews img{filter:hue-rotate(180deg) saturate(1.35)}
+.gallery figure{border:1px solid #e6bfd3;padding:8px;background:#fff6fb;border-radius:8px}
+.previews figure{border-color:#e6bfd3}
