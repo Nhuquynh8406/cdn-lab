@@ -1,7 +1,7 @@
 const ASSETS=['/static/img/photo-01.jpg','/static/img/photo-15.jpg','/static/css/app.css','/static/js/vendor.js'];
 let config, chart, controller, samples=[];
 const $=id=>document.getElementById(id);
-const ready=lab.json('/api/config').then(c=>{ config=c; $('environment').textContent=c.localMode?'Chế độ local: hai đường tải dùng cùng máy chủ. Không dùng chênh lệch này để kết luận CDN nhanh hơn.':`Origin ${c.originUrl} · Cloudflare ${c.siteUrl}${c.jsdelivrUrl?' · đã cấu hình jsDelivr':''}`; return c; });
+const ready=lab.json('/api/config').then(c=>{ config=c; $('environment').textContent=c.localMode?'Chế độ local: hai route dùng cùng máy chủ. Không dùng chênh lệch này để kết luận CDN nhanh hơn.':`Origin ${c.originUrl} · Cloudflare ${c.siteUrl}${c.jsdelivrUrl?' · đã cấu hình jsDelivr':''}`; return c; });
 ready.catch(e=>{$('environment').textContent=e.message; $('runBtn').disabled=true;});
 async function measure(url,signal) {
   performance.clearResourceTimings();
@@ -45,7 +45,7 @@ $('benchForm').addEventListener('submit',async e=>{
       try{samples.push({...common,...await measure(url,AbortSignal.any([controller.signal,AbortSignal.timeout(20000)]))});}
       catch(err){if(controller.signal.aborted)throw err;errors++;samples.push({...common,ttfb:null,total:null,bytes:null,http:null,cache:'',age:'',ray:'',error:err.message});}
     }
-    $('status').textContent=`Hoàn tất: ${samples.length} lượt thử, ${errors} lỗi. Trung vị giữ các lượt thành công, kể cả lượt đầu.`;
+    $('status').textContent=`Hoàn tất: ${samples.length} lượt thử, ${errors} lỗi. Median giữ các lượt thành công, kể cả lượt đầu.`;
   }catch(err){$('status').textContent=controller.signal.aborted?'Đã dừng. Có thể xem và xuất phần dữ liệu đã đo.':err.message;}
   finally{render();$('runBtn').disabled=false;$('cancelBtn').disabled=true;$('exportBtn').disabled=!samples.length;}
 });
