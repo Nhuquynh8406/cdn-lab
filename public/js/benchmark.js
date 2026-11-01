@@ -1,7 +1,7 @@
 const ASSETS=['/static/img/photo-01.jpg','/static/img/photo-15.jpg','/static/css/app.css','/static/js/vendor.js'];
 let config, chart, controller, samples=[];
 const $=id=>document.getElementById(id);
-const ready=lab.json('/api/config').then(c=>{ config=c; $('environment').textContent=c.localMode?'CHẾ ĐỘ LOCAL: hai đường tải dùng cùng máy chủ. Không dùng chênh lệch này để kết luận CDN nhanh hơn.':`Origin ${c.originUrl} · Cloudflare ${c.siteUrl}${c.jsdelivrUrl?' · đã cấu hình jsDelivr':''}`; return c; });
+const ready=lab.json('/api/config').then(c=>{ config=c; $('environment').textContent=c.localMode?'Chế độ local: hai route dùng cùng máy chủ. Không dùng chênh lệch này để kết luận CDN nhanh hơn.':`Origin ${c.originUrl} · Cloudflare ${c.siteUrl}${c.jsdelivrUrl?' · đã cấu hình jsDelivr':''}`; return c; });
 ready.catch(e=>{$('environment').textContent=e.message; $('runBtn').disabled=true;});
 async function measure(url,signal) {
   performance.clearResourceTimings();
@@ -16,13 +16,14 @@ async function measure(url,signal) {
   return {ttfb,total,bytes,http:res.status,cache:res.headers.get('cf-cache-status')||'Không đọc được',age:res.headers.get('age')||'',ray:res.headers.get('cf-ray')||'',error:''};
 }
 function render() {
+  $('chartEmpty').hidden=samples.length>0;
   const groups=new Map();
   for(const s of samples){const key=s.asset+'|'+s.route; if(!groups.has(key)) groups.set(key,[]); groups.get(key).push(s);}
   const tbody=$('results').tBodies[0]; tbody.replaceChildren();
   for(const rows of groups.values()) {
     const valid=rows.filter(s=>!s.error), last=valid.at(-1), tr=document.createElement('tr');
     const statuses=[...new Set(valid.map(s=>s.cache))].join(', ') || 'Thất bại';
-    for(const value of [rows[0].asset.split('/').at(-1),rows[0].route,`${valid.length}/${rows.length}`,lab.number(lab.median(valid.map(s=>s.ttfb))),lab.number(lab.median(valid.map(s=>s.total))),statuses,last?.age||'-',last?.ray||'-']){const td=document.createElement('td');td.textContent=value;tr.append(td);} tbody.append(tr);
+    for(const value of [rows[0].asset.split('/').at(-1),rows[0].route,`${valid.length}/${rows.length}`,lab.number(lab.median(valid.map(s=>s.ttfb))),lab.number(lab.median(valid.map(s=>s.total))),statuses,last?.age||'-',last?.ray||'-']){const td=document.createElement('td');if(value===statuses){value.split(', ').forEach((st,i)=>{if(i)td.append(', ');const sp=document.createElement('span');sp.className=lab.statusClass(st);sp.textContent=st;td.append(sp);});}else td.textContent=value;tr.append(td);} tbody.append(tr);
   }
   if(chart) chart.destroy();
   if(!window.Chart){$('status').textContent+=' Không tải được biểu đồ; dữ liệu vẫn có trong bảng và CSV.';return;}
@@ -44,7 +45,7 @@ $('benchForm').addEventListener('submit',async e=>{
       try{samples.push({...common,...await measure(url,AbortSignal.any([controller.signal,AbortSignal.timeout(20000)]))});}
       catch(err){if(controller.signal.aborted)throw err;errors++;samples.push({...common,ttfb:null,total:null,bytes:null,http:null,cache:'',age:'',ray:'',error:err.message});}
     }
-    $('status').textContent=`Hoàn tất: ${samples.length} lượt thử, ${errors} lỗi. Trung vị giữ các lượt thành công, kể cả lượt đầu.`;
+    $('status').textContent=`Hoàn tất: ${samples.length} lượt thử, ${errors} lỗi. Median giữ các lượt thành công, kể cả lượt đầu.`;
   }catch(err){$('status').textContent=controller.signal.aborted?'Đã dừng. Có thể xem và xuất phần dữ liệu đã đo.':err.message;}
   finally{render();$('runBtn').disabled=false;$('cancelBtn').disabled=true;$('exportBtn').disabled=!samples.length;}
 });

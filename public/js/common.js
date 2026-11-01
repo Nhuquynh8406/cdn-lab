@@ -6,6 +6,7 @@ window.lab = {
     return data;
   },
   median(values) { const s = values.filter(Number.isFinite).sort((a,b) => a-b); if (!s.length) return null; const m = Math.floor(s.length/2); return s.length % 2 ? s[m] : (s[m-1]+s[m])/2; },
+  statusClass(text) { const t = String(text).toUpperCase(); return t.startsWith('HIT') ? 'st-hit' : t.startsWith('MISS') ? 'st-miss' : /^(BYPASS|DYNAMIC)/.test(t) ? 'st-bypass' : ''; },
   number(value) { return Number.isFinite(value) ? value.toFixed(1) : 'N/A'; }
 };
 document.querySelectorAll('nav a').forEach(a => { if (new URL(a.href).pathname === location.pathname) a.setAttribute('aria-current', 'page'); });
