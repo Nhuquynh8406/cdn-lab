@@ -77,3 +77,6 @@ button,.button{min-height:44px}
 .chart:has(.chart-empty:not([hidden])){height:160px}
 
 @media(max-width:800px){header,main,footer{padding-inline:20px}main{padding-block:32px 48px}header{padding-block:16px}.hero{gap:32px;margin-bottom:48px}}
+
+/* Ảnh xem trước ở Admin hiện đúng màu thật, không nhuộm. */
+.previews img{filter:none}
